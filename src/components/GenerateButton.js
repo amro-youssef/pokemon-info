@@ -1,10 +1,14 @@
 import React from 'react';
 import './GenerateButton.css';
 
-const GenerateButton = () => {
+const GenerateButton = ( {handleClick}) => {
 	return (
 		<div>
-			<button class="button" role="button"> Generate</button>
+			<button
+				 class="button"
+				 onClick={handleClick}>
+				 Generate
+			 </button>
 		</div>
 	);
 }

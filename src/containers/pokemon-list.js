@@ -1,4 +1,4 @@
-const pokemonList = [
+export const pokemonList = [
   "Greninja",
   "Arceus",
   "Mew",
