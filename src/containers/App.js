@@ -4,6 +4,7 @@ import Logo from '../components/Logo'
 import AgeInput from '../components/AgeInput'
 import NameInput from '../components/NameInput'
 import GenerateButton from '../components/GenerateButton'
+import OutputBox from '../components/OutputBox'
 import {pokemonList} from './pokemon-list'
 import './App.css';
 
@@ -29,9 +30,9 @@ import './App.css';
 const App = () => {
   const [age, setAge] = useState(0);
   const [name, setName] = useState("");
+  const [outputText, setOutputText] = useState("");
 
   const handleClick = (event) => {
-
     if (age === 0){
       alert("Please enter your age");
       return;
@@ -43,8 +44,13 @@ const App = () => {
     const pokemon = getPokemon().toLowerCase();
     const json = getJson(pokemon)
 
-    console.log(json.then(data => console.log(data)))
-
+    setOutputText(pokemon)
+    json.then( (value) => {
+      const outputString = `Your pokemon is ${pokemon}\n`
+                           + `Your main ability is ${JSON.stringify(value?.abilities[0]?.ability?.name)}\n`
+                           + `Your main move is ${JSON.stringify(value?.moves[0]?.move?.name)}\n`
+      setOutputText(outputString)
+    })
   }
 
   const getJson = async (pokemon) => {
@@ -89,6 +95,7 @@ const App = () => {
       <NameInput change={handleNameInputChange}/>
       <AgeInput change={handleAgeInputChange}/>
       <GenerateButton handleClick={handleClick}/>
+      <OutputBox output={outputText}/>
     </div>
   );
 }
